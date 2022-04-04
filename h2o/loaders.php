@@ -109,7 +109,9 @@ class H2o_File_Loader extends H2o_Loader {
     }
 
     function flush_cache() {
-        $this->cache->flush();
+        if ($this->cache) {
+            $this->cache->flush();
+        }
     }
 
     function expired($object) {

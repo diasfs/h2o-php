@@ -21,16 +21,7 @@ class CoreFilters extends FilterCollection {
     }
     
     static function urlencode($data) {
-        if (is_array($data)) {
-            $result;
-            foreach ($data as $name => $value) {
-                $result .= $name.'='.urlencode($value).'&'.$querystring;
-            }
-            $querystring = substr($result, 0, strlen($result)-1);
-            return htmlspecialchars($result);
-        } else {
-            return urlencode($data);
-        }
+        return http_build_query($data);
     }
     
     static function hyphenize ($string) {
@@ -71,7 +62,7 @@ class StringFilters extends FilterCollection {
 
     static function humanize($string) {
         $string = preg_replace('/\s+/', ' ', trim(preg_replace('/[^A-Za-z0-9()!,?$]+/', ' ', $string)));
-        return capfirst($string);
+        return ucfirst($string);
     }
     
     static function capitalize($string) {
@@ -84,7 +75,7 @@ class StringFilters extends FilterCollection {
     
     static function capfirst($string) {
         $string = strtolower($string);
-        return strtoupper($string{0}). substr($string, 1, strlen($string));
+        return ucfirst($string);
     }
     
     static function tighten_space($value) {
